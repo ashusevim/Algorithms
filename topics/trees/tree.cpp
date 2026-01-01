@@ -1,4 +1,5 @@
 #include<bits/stdc++.h>
+#include <queue>
 using namespace std;
 
 // Definition for a binary tree node
@@ -59,6 +60,22 @@ void postorder(Node* root){
 	}
 }
 
+//iterative way
+void levelorder(Node* root){
+	queue<Node*> qq;
+	qq.push(root);
+	while(!qq.empty()){
+		int size = qq.size();
+		for(int i = 0; i<size; i++){
+			Node* node = qq.front();
+			qq.pop();
+			cout << node->data << '\n';
+			if(node->left != nullptr)qq.push(node->left);
+			if(node->right != nullptr)qq.push(node->right);
+		}
+	}
+}
+
 int main() {
 	Solution solution;
 	Node* root = solution.createBinaryTree();
@@ -67,10 +84,12 @@ int main() {
     // preorder(root);
 
     // postorder traversal
-    postorder(root);
+    // postorder(root);
 
     // inorder traversal
     // inorder(root);
+
+    levelorder(root);
 
     return 0;
 }
