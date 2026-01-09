@@ -9,8 +9,6 @@ int t[1001];
 int s[1001];
 int x, k; // limits
 
-int taken[1001];
-
 int recur(int level, int time_taken, int item_taken){
 	// pruning
 
