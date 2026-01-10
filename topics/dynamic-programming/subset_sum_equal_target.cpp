@@ -1,3 +1,4 @@
+// dp with caching across querie
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -5,31 +6,31 @@ int n;
 int t;
 int x[101];
 
-int dp[101][101];
+int dp[101][1001];
 
-int rec(int level, int sum){
+int rec(int level, int left){
 	// pruning
-	if(sum > t)return 0;
+	if(left < 0)return 0;
 
 	// base case
 	if(level == n){
-		if(sum == t)return 1;
+		if(left == 0)return 1;
 		else return 0;
 	}
 
 	// cache check
-	if(dp[level][sum] != -1){
-		return dp[level][sum];
+	if(dp[level][left] != -1){
+		return dp[level][left];
 	}
 
 	// compute/transation
-	int ans = rec(level+1, sum);
-	if(sum+x[level] <= t){
-		ans = rec(level+1, sum+x[level]);
+	int ans = rec(level+1, left);
+	if(left-x[level] >= 0){
+		ans = rec(level+1, left-x[level]);
 	}
 
 	// save/return
-	return dp[level][sum] = ans;
+	return dp[level][left] = ans;
 }
 
 int main(){
@@ -37,7 +38,11 @@ int main(){
 	for(int i = 0; i<n; i++){
 		cin >> x[i];
 	}
-	cin >> t;
+	int q;
+	cin >> q;
 	memset(dp, -1, sizeof(dp));
-	cout << rec(0, 0);
+	while(q--){
+		cin >> t;
+		cout << rec(0, t);
+	}
 }
