@@ -24,13 +24,31 @@ int rec(int level, int left){
 	}
 
 	// compute/transation
-	int ans = rec(level+1, left);
-	if(left-x[level] >= 0){
-		ans = rec(level+1, left-x[level]);
+	int ans = 0;
+	if(rec(level+1, left)==1){
+		ans = 1;
+	}
+	else if(rec(level+1, left-x[level])){
+		ans = 1;
 	}
 
 	// save/return
 	return dp[level][left] = ans;
+}
+
+void printset(int level, int left){
+	if(level == n+1){
+		return;
+	}
+
+	//find the correct transition
+	if(rec(level+1, left) == 1){ // don't take
+		printset(level+1, left);
+	}
+	else if(rec(level+1, left-x[level]) == 1){ // take
+		cout << x[level] << ' ';
+		printset(level+1, left-x[level]);
+	}
 }
 
 int main(){
@@ -43,6 +61,11 @@ int main(){
 	memset(dp, -1, sizeof(dp));
 	while(q--){
 		cin >> t;
-		cout << rec(0, t);
+		if(rec(0, t)){
+			printset(0, t);
+		}
+		else{
+			cout << "no solution";
+		}
 	}
 }
