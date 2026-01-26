@@ -68,38 +68,30 @@ public:
         ll n, q;
         cin >> n >> q;
         vector<ll> a(n), b(n);
-        for(int i = 0; i<n; i++)cin >> a[i];
-        for(int i = 0; i<n; i++)cin >> b[i];
+        for(ll i = 0; i<n; i++){
+            cin >> a[i];
+        }
+        for(ll i = 0; i<n; i++){
+            cin >> b[i];
+        }
 
-        int prev = -1;
-        vector<ll> imp;
-        for(int i = 0; i<n; i++){
-            if(a[i] > b[i]){
-                imp.push_back(a[i]);
-            }
-            else{
-                imp.push_back(b[i]);
+        for(ll i = n-1; i>=0; i--){
+            a[i] = max(a[i], b[i]);
+            if(i < n-1){
+                a[i] = max(a[i], a[i+1]);
             }
         }
-        int left = 0, right = imp.size()-1;
-        while(left <= right){
-            if(imp[left] <= imp[right]){
-                imp[left] = imp[right];
-            }
-            left++;
+
+        vector<ll> p = a;
+        for(ll i = 1; i<n; i++){
+            p[i] += p[i-1];
         }
 
         while(q--){
             ll L, R;
             cin >> L >> R;
-            ll sum = 0;
-            L--;
-            R--;
-            for(ll i = L; i<=R; i++){
-                sum += imp[i];
-            }
-            // cout << '\n';
-            cout << sum << " ";
+            L--;R--;
+            cout << p[R] - (L ? p[L-1] : 0) << ' ';
         }
 
         cout << '\n';
@@ -111,7 +103,7 @@ int main() {
     fast_io();
     
     int t = 1;
-    cin >> t;  // Uncomment for multiple test cases
+    cin >> t; 
     
     while (t--) {
         Solution sol;
