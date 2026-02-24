@@ -63,40 +63,16 @@ struct custom_hash {
 class Solution {
 public:
     void solve() {
-        int n;
-        cin >> n;
-        vector<int> v(n);
-        for(int i = 0; i<n; i++){
-            cin >> v[i];
+        int n, m;
+        cin >> n >> m;
+        vector<int> v(m+1);
+        for(int i = 0; i<m; i++)cin >> v[i];
+        sort(v.begin(), v.end());
+        int best = INT_MAX;
+        for(int i = 1; i<=m-n+1; i++){
+            best = min(best, v[i+n-1] - v[i]);
         }
-        int L = 0, R = n-1;
-        int Sereja = 0, Dima = 0;
-        int cnt = 0;
-        while(L <= R){
-            if(cnt == 0){
-                if(v[L] > v[R]){
-                    Sereja += v[L];
-                    L++;
-                }
-                else{
-                    Sereja += v[R];
-                    R--;
-                }
-                cnt = 1;
-            }
-            else{
-                if(v[L] > v[R]){
-                    Dima += v[L];
-                    L++;
-                }
-                else{
-                    Dima += v[R];
-                    R--;
-                }
-                cnt = 0;
-            }
-        }
-        cout << Sereja << " " << Dima << '\n';
+        cout << (best==INT_MAX ? 0 : best) << '\n';
     }
 };
 
