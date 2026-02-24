@@ -63,18 +63,19 @@ struct custom_hash {
 class Solution {
 public:
     void solve() {
-        int n;
-        cin >> n;
-        if(n <= 1399)cout << "Division 4" << '\n';
-        else if(n >= 1400 && n <= 1599){
-            cout << "Division 3" << '\n';
+        vector<int> v(4);
+        for(int i = 0; i<4; i++){
+            cin >> v[i];
         }
-        else if(n >= 1600 && n <= 1899){
-            cout << "Division 2" << '\n';
+
+        int ele = v[0];
+        int ans = 0;
+        for(int i = 1; i<4; i++){
+            if(v[i] > ele){
+                ans++;
+            }
         }
-        else if(n >= 1900){
-            cout << "Division 1" << '\n';
-        }
+        cout << ans << '\n';
     }
 };
 

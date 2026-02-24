@@ -65,16 +65,17 @@ public:
     void solve() {
         int n;
         cin >> n;
-        if(n <= 1399)cout << "Division 4" << '\n';
-        else if(n >= 1400 && n <= 1599){
-            cout << "Division 3" << '\n';
+        vector<int> v(n);
+        for(int i = 0; i<n; i++)cin >> v[i];
+        sort(v.begin(), v.end(), greater<>());
+
+        for(int i = 0; i<n-1; i++){
+            if(abs(v[i] - v[i+1]) > 1){
+                cout << "NO" << '\n';
+                return;
+            }
         }
-        else if(n >= 1600 && n <= 1899){
-            cout << "Division 2" << '\n';
-        }
-        else if(n >= 1900){
-            cout << "Division 1" << '\n';
-        }
+        cout << "YES" << '\n';
     }
 };
 
